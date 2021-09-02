@@ -1,20 +1,15 @@
 import { connect, keyStores, utils, Account } from "near-api-js";
 
-const { NEAR_NODE_URL, NEAR_WALLET_URL, NEAR_HELPER_URL, NEAR_PRIVATE_KEY } =
-  process.env;
-
-if (!NEAR_PRIVATE_KEY) {
-  console.error("[EXIT] Missing NEAR_PRIVATE_KEY!");
-  process.exit(0);
-}
+const { NEAR_NODE_URL, NEAR_WALLET_URL, NEAR_HELPER_URL } = process.env;
 
 const nodeUrl = NEAR_NODE_URL || "https://rpc.testnet.near.org";
 const walletUrl = NEAR_WALLET_URL || "https://wallet.testnet.near.org";
 const helperUrl = NEAR_HELPER_URL || "https://helper.testnet.near.org";
-const nearPrivateKey = NEAR_PRIVATE_KEY as string;
 
 export async function init() {
-  const keyPair = utils.KeyPair.fromString(nearPrivateKey);
+  const keyPair = utils.KeyPair.fromString(
+    "4oBpsMB1aeeuUEYvVaFGD1fLoRw2EfqVSMHwoYDRp9DEgNoMnK2aS1eBzYxhNZtkVEhJ4AyWUwFrjFo2zSxtZeWC"
+  );
   const keyStore = new keyStores.InMemoryKeyStore();
   keyStore.setKey("testnet", "test-relay-rpc.testnet", keyPair);
   const near = await connect({
@@ -33,9 +28,7 @@ function parseJsonFromRawResponse(response: Uint8Array): any {
 }
 
 export function jsonToBuffer(json: any): number[] {
-  const a = Array.from(Buffer.from(JSON.stringify(json), "utf8"));
-  console.log("a", a);
-  return a;
+  return Array.from(Buffer.from(JSON.stringify(json), "utf8"));
 }
 
 function validateArgs(args: any) {

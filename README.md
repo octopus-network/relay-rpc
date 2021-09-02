@@ -1,9 +1,9 @@
 ## Preparations
 
-This private key is publicly used for testing
-
 ```
-export NEAR_PRIVATE_KEY="4oBpsMB1aeUEeuYvVD1aFGfLoRw2EfqVSMHwoYDRp9DEgNoMnK2aS1eBzYxhNZtkVEhJ4AyWUwFrjFo2zeWCSxtZ"
+export NEAR_NODE_URL="https://rpc.testnet.near.org"
+export NEAR_WALLET_URL="https://wallet.testnet.near.org"
+export NEAR_HELPER_URL="https://helper.testnet.near.org"
 ```
 
 ```
