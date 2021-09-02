@@ -4,6 +4,12 @@ const cors = require("cors");
 const connect = require("connect");
 const jsonParser = require("body-parser").json;
 
+const { PORT } = process.env;
+if (!PORT) {
+  console.error("[EXIT] Missing PORT!");
+  process.exit(0);
+}
+
 import relayFacts from "./relay-facts";
 import { init } from "./utils";
 

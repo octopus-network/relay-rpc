@@ -3,6 +3,11 @@ import { connect, keyStores, utils, Account } from "near-api-js";
 const { NEAR_NODE_URL, NEAR_WALLET_URL, NEAR_HELPER_URL, NEAR_PRIVATE_KEY } =
   process.env;
 
+if (!NEAR_PRIVATE_KEY) {
+  console.error("[EXIT] Missing NEAR_PRIVATE_KEY!");
+  process.exit(0);
+}
+
 const nodeUrl = NEAR_NODE_URL || "https://rpc.testnet.near.org";
 const walletUrl = NEAR_WALLET_URL || "https://wallet.testnet.near.org";
 const helperUrl = NEAR_HELPER_URL || "https://helper.testnet.near.org";
