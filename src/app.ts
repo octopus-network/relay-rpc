@@ -31,7 +31,7 @@ async function start() {
           const rawResult = await relayFacts(account, args, queries);
           return callback(null, rawResult);
         } else {
-          callback(null, "Mathod not supported");
+          callback(null, "Method not supported");
         }
       } catch (e) {
         callback(null, e);
