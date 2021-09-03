@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: near-rpc-preprocessor
+spec:
+  selector:
+    matchLabels:
+      app: near-rpc-preprocessor
+  template:
+    metadata:
+      labels:
+        app: near-rpc-preprocessor
+    spec:
+      containers:
+      - name: near-rpc-preprocessor
+        image: "gcr.io/octopus-dev-309403/relay-rpc:latest"
+        env:
+        - name: NEAR_NODE_URL
+          value: "https://rpc.testnet.near.org"
+        - name: NEAR_WALLET_URL
+          value: "https://wallet.testnet.near.org"
+        - name: NEAR_HELPER_URL
+          value: "https://helper.testnet.near.org"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: near-rpc-preprocessor-service
+  labels:
+    app: near-rpc-preprocessor
+spec:
+  ports:
+  - port: 9000
+    name: http-rpc
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    app: near-rpc-preprocessor
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: near-rpc-preprocessor-ingress
+spec:
+  defaultBackend:
+    service:
+      name: near-rpc-preprocessor-service
+      port:
+        number: 9000
