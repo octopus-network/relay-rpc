@@ -1,7 +1,7 @@
 const superagent = require("superagent");
 const jayson = require("jayson");
 const cors = require("cors");
-const connect = require("connect");
+const express = require("express");
 const jsonParser = require("body-parser").json;
 
 const { PORT } = process.env;
@@ -15,8 +15,10 @@ import { init } from "./utils";
 
 async function start() {
   const account = await init();
-  const app = connect();
-
+  const app = express();
+  app.get("/healthz", function fooMiddleware(req: any, res: any) {
+    res.sendStatus(200);
+  });
   const server = new jayson.server({
     query: async function (args: any, callback: any) {
       try {
@@ -41,6 +43,6 @@ async function start() {
   app.use(jsonParser());
   app.use(server.middleware());
 
-  app.listen(9000);
+  app.listen(PORT);
 }
 start();
